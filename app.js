@@ -11,7 +11,10 @@ var BrandTricks = {
   },
   presentation: function() {
   },
-  events: function(){},
+  events: function(){
+    $('button[name="login"]').on("click", BrandTricks.login);
+
+  },
   getMsg: function() {
     $.ajax({
       url: BrandTricks.config.urlMsg,
@@ -110,15 +113,24 @@ var BrandTricks = {
   },
   login: function(username, password) {
     var users = BrandTricks.getUser();
+    console.log(users);
     users.forEach(function(el){
-      if (username === el.name && password === el.password) {
-        $('.login').removeClass('show');
-        $('.mainContainer').addClass('show');
+      if (_.find(users, username) === undefined) {
+        BrandTricks.addUser({
+          username: username,
+          password: password
+        });
         BrandTricks.setActiveUser();
       } else {
-        return "Login failed"
+        if (username === el.username && password === el.password) {
+          $('.login').removeClass('show');
+          $('.mainContainer').addClass('show');
+          BrandTricks.setActiveUser();
+        } else {
+          return "Login failed"
+        }
       }
-    })
+    });
   }
 }
 

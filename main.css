@@ -1,7 +1,12 @@
 body{
   background-color: lightgrey;
 }
-
+.login {
+  display: none;
+}
+.mainContainer {
+  display: none;
+}
 
 header{
   width: 90%;
@@ -23,4 +28,8 @@ form{
 }
 
 .messagediv{
+}
+
+.show {
+  display: block;
 }
