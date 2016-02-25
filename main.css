@@ -1,0 +1,24 @@
+body{
+  background-color: lightgrey;
+}
+
+
+header{
+  width: 90%;
+  background: linear-gradient(#EC5144, #F3D0CD);
+  height:25%;
+  font-family:'Open Sans Condensed', sans-serif;
+  color:white;
+  text-shadow: 2px 2px 4px #000000;
+  border: 10px double rgba(0, 0, 0, 0.2);
+}
+header h1{
+  text-align: left;
+}
+
+form{
+  width: 50%;
+  height:20px;
+  border: 5px solid #EC5144;
+
+}
