@@ -5,16 +5,15 @@ var BrandTricks = {
     BrandTricks.events();
   },
   config: {
-    url: "http://tiny-tiny.herokuapp.com/collections/BrandTricks",
-    msgUrl: BrandTricks.config.url + "/" + "msg/"
-    userUrl: BrandTricks.config.url + "/" + "user/"
+    urlMsg: "http://tiny-tiny.herokuapp.com/collections/BrandTricks",
+    urlUser: "http://tiny-tiny.herokuapp.com/collections/BrandTricksUsers"
   },
   presentation: function() {
   },
   events: function(){},
   getMsg: function() {
     $.ajax({
-      url: BrandTricks.config.url + "/" + "msg",
+      url: BrandTricks.config.urlMsg,
       method: 'GET',
       success: function (messages) {
         console.log(messages);
@@ -26,7 +25,7 @@ var BrandTricks = {
   },
   addMsg: function(messageObj) {
     $.ajax({
-      url: BrandTricks.config.msgUrl,
+      url: BrandTricks.config.urlMsg,
       method: "POST",
       data: messageObj,
       success: function(messages){
@@ -39,14 +38,53 @@ var BrandTricks = {
   },
   deleteMsg: function(messageID) {
     $.ajax({
-      url: BrandTricks.config.userUrl,
+      url: BrandTricks.config.urlMsg + "/" + messageID,
       method: 'DELETE',
       success: function (response) {
-        myBlog.getPosts();
+        BrandTricks.getMsg();
+      },
+      error: function (err) {
+        console.log(err);
+      }
     });
   },
-  getUser: function() {},
-  addUser: function() {},
+  getUser: function() {
+    $.ajax({
+      url: BrandTricks.config.urlUser,
+      method: 'GET',
+      success: function (users) {
+        console.log(users);
+      },
+      error: function(err) {
+        console.log(err);
+      }
+    });
+  },
+  addUser: function(userObj) {
+    $.ajax({
+      url: BrandTricks.config.urlUser,
+      method: "POST",
+      data: userObj,
+      success: function(messages){
+        BrandTricks.getUser();
+      },
+      error: function(err) {
+        console.log(err);
+      }
+    });
+  },
+  deleteUser: function(userID) {
+    $.ajax({
+      url: BrandTricks.config.urlUser + "/" + userID,
+      method: 'DELETE',
+      success: function (response) {
+        BrandTricks.getUser();
+      },
+      error: function(err) {
+        console.log(err);
+      }
+    });
+  },
 
 }
 
