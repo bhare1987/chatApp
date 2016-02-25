@@ -1,9 +1,9 @@
 var templates = {
  messagetmpl: [
-   "<div data-id='<%= _id %>'>",
-     "<p><%= content %></p>",
-     "<span><%= name %></span>",
-     "<span><%= date %></span>",
+   "<div data-id='<%= id %>'>",
+     "<div class='messagediv'><%= content %></div>",
+       "<span><%= username %></span>",
+    //  "<span><%= date %></span>",
      "</div>",
  ].join("")
 };

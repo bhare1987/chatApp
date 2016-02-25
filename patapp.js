@@ -1,37 +1,38 @@
-var messages ={
-  [        ]
-};
+var messages =[ ];
 
 function userInput(){
-  var contenT = $('input["name=chat"]').val();
-  return contenT;
+  var content = $('input[name="chat"]').val();
+  return {
+    content: content,
+    username: "test user name",
+  };
 }
 
 function displayMessage(data, str, $target){
   var messtmpl = _.template(str);
   $target.append(messtmpl(data));
-};
+}
 
 function getMessage(){
   return messages;
-};
+}
 
-function showNewMessage(messagetmpl){
-messages.push(messagetmpl)
-};
+function addNewMessage(newMsg){
+  messages.push(newMsg);
+}
 
-function addGetMssg(){
+function addGetMssg(arr){
   $('section').html('');
-  _.each(), function (el,i) {
-  el.id = _id;
-  displayMessage(el, templates.messagetpl, $('section'));
-  }
+  _.each(arr, function(el,i) {
+    el.id = i;
+    displayMessage(el, templates.messagetmpl, $('section'));
+  });
 }
 
 $('form').on('submit', function(event){
-event.preventDefault();
-var NewMessage = userInput()
-showNewMessage(NewMessage);
-addGetMssg(getMessage());
-$('input').val('');
+  event.preventDefault();
+  var NewMessage = userInput()
+  addNewMessage(NewMessage);
+  addGetMssg(getMessage());
+  $('input').val('');
 });
