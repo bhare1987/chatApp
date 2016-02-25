@@ -6,7 +6,8 @@ var BrandTricks = {
   },
   config: {
     urlMsg: "http://tiny-tiny.herokuapp.com/collections/BrandTricks",
-    urlUser: "http://tiny-tiny.herokuapp.com/collections/BrandTricksUsers"
+    urlUser: "http://tiny-tiny.herokuapp.com/collections/BrandTricksUsers",
+    activeUser: "",
   },
   presentation: function() {
   },
@@ -104,12 +105,16 @@ var BrandTricks = {
       }
     }
   },
+  setActiveUser: function(){
+
+  },
   login: function(username, password) {
     var users = BrandTricks.getUser();
     users.forEach(function(el){
       if (username === el.name && password === el.password) {
         $('.login').removeClass('show');
         $('.mainContainer').addClass('show');
+        BrandTricks.setActiveUser();
       } else {
         return "Login failed"
       }

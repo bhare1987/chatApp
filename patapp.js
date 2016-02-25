@@ -5,6 +5,7 @@ function userInput(){
   return {
     content: content,
     username: "test user name",
+    date: moment.utc().format("dddd, MMMM, Do YYYY, h:mm:ss a"),
   };
 }
 
