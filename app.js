@@ -3,10 +3,24 @@ var BrandTricks = {
     BrandTricks.presentation();
     BrandTricks.events();
   },
-  presentation: function() {},
+  config: {
+    url: "http://tiny-tiny.herokuapp.com/collections/BrandTricks",
+  },
+  presentation: function() {
+  },
   events: function(){},
   getMsg: function() {
-
+    $.ajax({
+      url: BrandTricks.config.url,
+      method: 'GET',
+      success: function (blogPosts) {
+        console.log(blogPosts);
+        myBlog.addAllPostsToDom(blogPosts);
+      },
+      error: function (err) {
+        console.log(err);
+      }
+    });
   },
   addMsg: function(messageObj) {},
   deleteMsg: function(messageID) {},
