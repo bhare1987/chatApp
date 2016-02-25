@@ -85,7 +85,36 @@ var BrandTricks = {
       }
     });
   },
-
+  setIntervals: {
+    messageInterval: undefined,
+    userInterval: undefined,
+    intervalsFunc: function(flag, type, interval, callback) {
+    if (type.toLowerCase() === "user") {
+      if (flag === true) {
+        BrandTricks.setIntervals.userInterval = setInterval(callback, interval);
+      } else if (flag === false) {
+        clearInterval(BrandTricks.setIntervals.userInterval);
+      }
+    } else if (type.toLowerCase() === "message") {
+      if (flag === true) {
+        BrandTricks.setIntervals.messageInterval = setInterval(callback, interval);
+      } else if (flag === false) {
+        clearInterval(BrandTricks.setIntervals.messageInterval);
+      }
+      }
+    }
+  },
+  login: function(username, password) {
+    var users = BrandTricks.getUser();
+    users.forEach(function(el){
+      if (username === el.name && password === el.password) {
+        $('.login').removeClass('show');
+        $('.mainContainer').addClass('show');
+      } else {
+        return "Login failed"
+      }
+    })
+  }
 }
 
 $(document).ready(function(){
