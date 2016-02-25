@@ -13,8 +13,8 @@ var BrandTricks = {
     $.ajax({
       url: BrandTricks.config.url,
       method: 'GET',
-      success: function (blogPosts) {
-        console.log(blogPosts);
+      success: function (messages) {
+        console.log(messages);
         myBlog.addAllPostsToDom(blogPosts);
       },
       error: function (err) {
