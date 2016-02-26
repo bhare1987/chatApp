@@ -4,8 +4,8 @@ function userInput(){
   var content = $('input[name="chat"]').val();
   return {
     content: content,
-    username: "test user name",
-    date: moment.utc().format("dddd, MMMM, Do YYYY, h:mm:ss a"),
+    username: "PATRICK",
+    date: moment.utc().format('LTS'),
   };
 }
 
@@ -19,7 +19,7 @@ function getMessage(){
 }
 
 function addNewMessage(newMsg){
-  messages.push(newMsg);
+  messages.push(newMsg);  //*
 }
 
 function addGetMssg(arr){
@@ -32,8 +32,8 @@ function addGetMssg(arr){
 
 $('form').on('submit', function(event){
   event.preventDefault();
-  var NewMessage = userInput()
-  addNewMessage(NewMessage);
+  var NewMessage = userInput();
+  addNewMessage(NewMessage); //*
   addGetMssg(getMessage());
   $('input').val('');
 });
