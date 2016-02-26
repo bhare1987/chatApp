@@ -14,6 +14,7 @@ var BrandTricks = {
   presentation: function() {
     BrandTricks.getUser();
     BrandTricks.getMsg();
+    BrandTricks.refreshMsgs();
   },
   events: function(){
     $('button[name="login"]').on("click", BrandTricks.login);
@@ -86,7 +87,7 @@ var BrandTricks = {
       url: BrandTricks.config.urlUser + "/" + userID,
       method: 'DELETE',
       success: function (response) {
-        // BrandTricks.getUser();
+        BrandTricks.getUser();
       },
       error: function(err) {
         console.log(err);
@@ -95,7 +96,9 @@ var BrandTricks = {
   },
   setIntervals: {
     messageInterval: undefined,
+    messageRefreshInterval: undefined,
     userInterval: undefined,
+    userRefreshInterval: undefined,
     intervalsFunc: function(flag, type, interval, callback) {
     if (type.toLowerCase() === "user") {
       if (flag === true) {
@@ -109,8 +112,24 @@ var BrandTricks = {
         } else if (flag === false) {
           clearInterval(BrandTricks.setIntervals.messageInterval);
         }
+    } else if (type.toLowerCase() === "msgrefresh") {
+        if (flag === true) {
+          BrandTricks.setIntervals.messageRefreshInterval = setInterval(callback, interval);
+        } else if (flag === false) {
+          clearInterval(BrandTricks.setIntervals.messageRefreshInterval);
+        }
+    } else if (type.toLowerCase() === "userrefresh") {
+        if (flag === true) {
+          BrandTricks.setIntervals.userRefreshInterval = setInterval(callback, interval);
+        } else if (flag === false) {
+          clearInterval(BrandTricks.setIntervals.userRefreshInterval);
+        }
       }
     }
+  },
+  refreshMsgs: function(){
+    BrandTricks.setIntervals.intervalsFunc(true, 'message', 1000, BrandTricks.getMsg);
+    BrandTricks.setIntervals.intervalsFunc(true, 'msgrefresh', 1000, function(){addGetMssg(BrandTricks.config.messages)});
   },
   setActiveUser: function(username){
     return BrandTricks.config.activeUser = username;

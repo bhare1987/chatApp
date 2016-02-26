@@ -4,7 +4,7 @@ function userInput(){
   var content = $('input[name="chat"]').val();
   return {
     content: content,
-    username: "test user name",
+    username: BrandTricks.config.activeUser,
     date: moment.utc().format("dddd, MMMM, Do YYYY, h:mm:ss a"),
   };
 }
@@ -25,15 +25,16 @@ function addNewMessage(newMsg){
 function addGetMssg(arr){
   $('section').html('');
   _.each(arr, function(el,i) {
-    el.id = i;
     displayMessage(el, templates.messagetmpl, $('section'));
   });
+  console.log("refreshed!");
 }
 
 $('form').on('submit', function(event){
   event.preventDefault();
-  var NewMessage = userInput()
-  addNewMessage(NewMessage);
-  addGetMssg(getMessage());
+  BrandTricks.getMsg();
+  var NewMessage = userInput();
+  BrandTricks.addMsg(NewMessage);
+  addGetMssg(BrandTricks.config.messages);
   $('input').val('');
 });
