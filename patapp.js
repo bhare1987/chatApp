@@ -9,14 +9,17 @@ function userInput(){
 
 function displayMessage(data, str, $target){
   var messtmpl = _.template(str);
-  $target.append(messtmpl(data));
+  $target.prepend(messtmpl(data));
 }
 
 function mssgToDom(arr){
-  $('.chatContainer section').html('');
+  var $selector = $('.chatContainer section');
+  $selector.html('');
   _.each(arr, function(el,i) {
     displayMessage(el, templates.messagetmpl, $('.chatContainer section'));
   });
+  //http://stackoverflow.com/questions/270612/scroll-to-bottom-of-div
+  $selector.scrollTop($selector[0].scrollHeight);
 }
 
 $('form').on('submit', function(event){
