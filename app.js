@@ -8,8 +8,13 @@ var BrandTricks = {
     urlMsg: "http://tiny-tiny.herokuapp.com/collections/BrandTricks",
     urlUser: "http://tiny-tiny.herokuapp.com/collections/BrandTricksUsers",
     activeUser: "",
+    users: [],
+    messages: []
   },
   presentation: function() {
+    BrandTricks.getUser();
+    BrandTricks.getMsg();
+    BrandTricks.refreshMsgs();
   },
   events: function(){
     $('button[name="login"]').on("click", BrandTricks.login);
@@ -20,7 +25,7 @@ var BrandTricks = {
       url: BrandTricks.config.urlMsg,
       method: 'GET',
       success: function (messages) {
-        console.log(messages);
+        BrandTricks.config.messages = messages;
       },
       error: function (err) {
         console.log(err);
@@ -57,7 +62,7 @@ var BrandTricks = {
       url: BrandTricks.config.urlUser,
       method: 'GET',
       success: function (users) {
-        console.log(users);
+        BrandTricks.config.users = users;
       },
       error: function(err) {
         console.log(err);
@@ -91,7 +96,9 @@ var BrandTricks = {
   },
   setIntervals: {
     messageInterval: undefined,
+    messageRefreshInterval: undefined,
     userInterval: undefined,
+    userRefreshInterval: undefined,
     intervalsFunc: function(flag, type, interval, callback) {
     if (type.toLowerCase() === "user") {
       if (flag === true) {
@@ -100,35 +107,68 @@ var BrandTricks = {
         clearInterval(BrandTricks.setIntervals.userInterval);
       }
     } else if (type.toLowerCase() === "message") {
-      if (flag === true) {
-        BrandTricks.setIntervals.messageInterval = setInterval(callback, interval);
-      } else if (flag === false) {
-        clearInterval(BrandTricks.setIntervals.messageInterval);
-      }
+        if (flag === true) {
+          BrandTricks.setIntervals.messageInterval = setInterval(callback, interval);
+        } else if (flag === false) {
+          clearInterval(BrandTricks.setIntervals.messageInterval);
+        }
+    } else if (type.toLowerCase() === "msgrefresh") {
+        if (flag === true) {
+          BrandTricks.setIntervals.messageRefreshInterval = setInterval(callback, interval);
+        } else if (flag === false) {
+          clearInterval(BrandTricks.setIntervals.messageRefreshInterval);
+        }
+    } else if (type.toLowerCase() === "userrefresh") {
+        if (flag === true) {
+          BrandTricks.setIntervals.userRefreshInterval = setInterval(callback, interval);
+        } else if (flag === false) {
+          clearInterval(BrandTricks.setIntervals.userRefreshInterval);
+        }
       }
     }
   },
-  setActiveUser: function(){
-
+  refreshMsgs: function(){
+    BrandTricks.setIntervals.intervalsFunc(true, 'message', 1000, BrandTricks.getMsg);
+    BrandTricks.setIntervals.intervalsFunc(true, 'msgrefresh', 1000, function(){addGetMssg(BrandTricks.config.messages)});
   },
-  login: function(username, password) {
-    var users = BrandTricks.getUser();
-    console.log(users);
-    users.forEach(function(el){
-      if (_.find(users, username) === undefined) {
-        BrandTricks.addUser({
-          username: username,
-          password: password
-        });
-        BrandTricks.setActiveUser();
+  setActiveUser: function(username){
+    return BrandTricks.config.activeUser = username;
+  },
+  login: function() {
+    var userName = $('input[name="username"]').val();
+    var password = $('input[name="password"]').val();
+    BrandTricks.getUser();
+    var userTest;
+    BrandTricks.config.users.forEach(function(el){
+      return userTest = _.isMatch(el, {username: userName})
+    });
+    if (!userName || !password) {
+      return "Invalid credentials"
+    } else {
+      if (!userTest) {
+        BrandTricks.loginNew(userName, password);
       } else {
-        if (username === el.username && password === el.password) {
-          $('.login').removeClass('show');
-          $('.mainContainer').addClass('show');
-          BrandTricks.setActiveUser();
-        } else {
-          return "Login failed"
-        }
+        BrandTricks.loginExisting(userName, password);
+      }
+    }
+  },
+  loginNew: function(userName, password) {
+    BrandTricks.addUser({
+      username: userName,
+      password: password
+    });
+    $('.login').removeClass('show');
+    $('.mainContainer').addClass('show');
+    BrandTricks.setActiveUser(userName);
+  },
+  loginExisting: function(userName, password) {
+    BrandTricks.config.users.forEach(function(el){
+      if (userName === el.username && password === el.password) {
+        $('.login').removeClass('show');
+        $('.mainContainer').addClass('show');
+        BrandTricks.setActiveUser(userName);
+      } else {
+        return "Login failed"
       }
     });
   }
