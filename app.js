@@ -145,13 +145,12 @@ var BrandTricks = {
     var password = $('input[name="password"]').val().trim();
     BrandTricks.getUser();
     var userTest;
-    console.log(userTest);
     BrandTricks.config.users.forEach(function(el){
       return userTest = _.isMatch(el, {username: userName})
       console.log(userTest);
     });
     if (!userName || !password) {
-      return "Invalid credentials"
+      return "Invalid credentials";
     } else {
       if (!userTest) {
         BrandTricks.loginNew(userName, password);
