@@ -152,6 +152,7 @@ border-radius: 2px;
 
 .delete:hover {
   color: red;
+  cursor: pointer;
 }
 
 .dialogue{
