@@ -153,3 +153,11 @@ border-radius: 2px;
 .delete:hover {
   color: red;
 }
+
+.dialogue{
+  padding: 5%;
+  width: 75%;
+  background-size: contain;
+  background-image: url('./images/IMG_head.png');
+  background-repeat: no-repeat;
+}
