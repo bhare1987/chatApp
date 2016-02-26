@@ -152,5 +152,9 @@ border-radius: 2px;
   font-size: 10px;
 }
 .delete{
-  display: none;
+  display: inline;
+}
+
+.delete:hover {
+  color: red;
 }
