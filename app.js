@@ -144,15 +144,15 @@ var BrandTricks = {
     var userName = $('input[name="username"]').val().trim();
     var password = $('input[name="password"]').val().trim();
     BrandTricks.getUser();
-    var userTest;
-    BrandTricks.config.users.forEach(function(el){
-      return userTest = _.isMatch(el, {username: userName})
-      console.log(userTest);
+
+    var userTest = BrandTricks.config.users.filter(function(el){
+      return _.isMatch(el, {username: userName});
+
     });
     if (!userName || !password) {
       return "Invalid credentials";
     } else {
-      if (!userTest) {
+      if (userTest.length === 0) {
         BrandTricks.loginNew(userName, password);
       } else {
         BrandTricks.loginExisting(userName, password);
@@ -175,6 +175,7 @@ var BrandTricks = {
         $('.mainContainer').addClass('show');
         BrandTricks.setActiveUser(userName);
       } else {
+        console.log("Login failed");
         return "Login failed";
       }
     });
