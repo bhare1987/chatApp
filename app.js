@@ -20,6 +20,7 @@ var BrandTricks = {
   events: function(){
     $('button[name="login"]').on("click", BrandTricks.login);
     $('.chatContainer').on("click", ".delete", BrandTricks.deleteFromDom);
+    $('form').on('submit', BrandTricks.sendMsg);
   },
   getMsg: function() {
     $.ajax({
@@ -137,11 +138,11 @@ var BrandTricks = {
   },
   refreshMsgs: function(){
     BrandTricks.setIntervals.intervalsFunc(true, 'message', 1000, BrandTricks.getMsg);
-    BrandTricks.setIntervals.intervalsFunc(true, 'msgrefresh', 1000, function(){mssgToDom(BrandTricks.config.messages)});
+    BrandTricks.setIntervals.intervalsFunc(true, 'msgrefresh', 1000, function(){BrandTricks.mssgToDom(BrandTricks.config.messages)});
   },
   refreshUsers: function(){
     BrandTricks.setIntervals.intervalsFunc(true, 'user', 1000, BrandTricks.getUser);
-    BrandTricks.setIntervals.intervalsFunc(true, 'userrefresh', 5000, function(){usersToDom(BrandTricks.config.users)});
+    BrandTricks.setIntervals.intervalsFunc(true, 'userrefresh', 5000, function(){BrandTricks.usersToDom(BrandTricks.config.users)});
   },
   setActiveUser: function(username){
     return BrandTricks.config.activeUser = username;
@@ -186,6 +187,46 @@ var BrandTricks = {
         return "Login failed";
       }
     });
+  },
+  userInput: function(){
+    var content = $('input[name="chat"]').val();
+    return {
+      content: content,
+      username: BrandTricks.config.activeUser,
+      date: moment.utc().format('LTS'),
+    };
+  },
+  displayMessage: function(data, str, $target){
+    var messtmpl = _.template(str);
+    $target.prepend(messtmpl(data));
+    //http://stackoverflow.com/questions/270612/scroll-to-bottom-of-div
+    var $selector = $('.chatContainer section');
+    $selector.scrollTop($selector[0].scrollHeight);
+  },
+  mssgToDom: function(arr){
+    var $selector = $('.chatContainer section');
+    $selector.html('');
+    _.each(arr, function(el,i) {
+      BrandTricks.displayMessage(el, templates.messagetmpl, $('.chatContainer section'));
+    });
+  },
+  displayUsers: function(data, str, $target){
+    var usertmpl= _.template(str);
+    $target.append(usertmpl(data));
+  },
+  usersToDom: function(arr){
+    $('ul').html('');
+    _.each(arr, function(el,i) {
+      BrandTricks.displayUsers(el, templates.usertmpl, $('ul'));
+    });
+  },
+  sendMsg: function(event) {
+    event.preventDefault();
+    BrandTricks.getMsg();
+    var NewMessage = BrandTricks.userInput();
+    BrandTricks.addMsg(NewMessage);
+    BrandTricks.mssgToDom(BrandTricks.config.messages);
+    $('input').val('');
   }
 };
 
