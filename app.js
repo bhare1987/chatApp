@@ -19,7 +19,7 @@ var BrandTricks = {
   },
   events: function(){
     $('button[name="login"]').on("click", BrandTricks.login);
-
+    $('.delete').on("click", BrandTricks.deleteFromDom);
   },
   getMsg: function() {
     $.ajax({
@@ -45,6 +45,10 @@ var BrandTricks = {
         console.log(err);
       }
     });
+  },
+  deleteFromDom: function(){
+    var message = $(this).closest('div.messageContainer').data('id');
+    BrandTricks.deleteMsg(message);
   },
   deleteMsg: function(messageID) {
     $.ajax({
