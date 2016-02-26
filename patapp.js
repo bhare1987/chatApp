@@ -43,5 +43,4 @@ function usersToDom(arr){
   _.each(arr, function(el,i) {
     displayUsers(el, templates.usertmpl, $('ul'));
   });
-  console.log("USERS!");
 }
