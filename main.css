@@ -148,10 +148,17 @@ border-radius: 2px;
 
 .delete {
   display: inline-block;
+  font-family:'Open Sans Condensed', sans-serif;
+  background-color:rgba(225, 0, 0, 0.5);
+  color:black;
+  border-radius: 5px;
+  padding: 1%;
+  margin-left: 2%;
 }
 
 .delete:hover {
-  color: red;
+  color: white;
+  font-family:'Open Sans Condensed', sans-serif;
   cursor: pointer;
 }
 
@@ -187,4 +194,7 @@ input{
   border-color:white;
   color:white;
   text-shadow: 2px 2px 4px #000000;
+}
+.button1:active{
+ background-color:rgba(0, 225, 225, 0.9);
 }
