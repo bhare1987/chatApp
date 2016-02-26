@@ -1,5 +1,3 @@
-var messages =[ ];
-
 function userInput(){
   var content = $('input[name="chat"]').val();
   return {
@@ -14,20 +12,11 @@ function displayMessage(data, str, $target){
   $target.append(messtmpl(data));
 }
 
-function getMessage(){
-  return messages;
-}
-
-function addNewMessage(newMsg){
-  messages.push(newMsg);  //*
-}
-
 function mssgToDom(arr){
   $('.chatContainer section').html('');
   _.each(arr, function(el,i) {
     displayMessage(el, templates.messagetmpl, $('.chatContainer section'));
   });
-  console.log("refreshed!");
 }
 
 $('form').on('submit', function(event){
@@ -50,5 +39,4 @@ function usersToDom(arr){
   _.each(arr, function(el,i) {
     displayUsers(el, templates.usertmpl, $('ul'));
   });
-  console.log("USERS!");
 }
