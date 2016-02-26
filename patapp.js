@@ -16,7 +16,7 @@ function addNewMessage(newMsg){
   messages.push(newMsg);
 }
 
-function addGetMssg(arr){
+function mssgToDom(arr){
   $('section').html('');
   _.each(arr, function(el,i) {
     displayMessage(el, templates.messagetmpl, $('section'));
@@ -28,6 +28,20 @@ $('form').on('submit', function(event){
   BrandTricks.getMsg();
   var NewMessage = userInput();
   BrandTricks.addMsg(NewMessage);
-  addGetMssg(BrandTricks.config.messages);
+  mssgToDom(BrandTricks.config.messages);
   $('input').val('');
 });
+
+
+function displayUsers(data, str, $target){
+  var usertmpl= _.template(str);
+  $target.append(usertmpl(data));
+}
+
+function usersToDom(arr){
+  $('ul').html('');
+  _.each(arr, function(el,i) {
+    displayUsers(el, templates.usertmpl, $('ul'));
+  });
+  console.log("USERS!");
+}
