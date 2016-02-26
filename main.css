@@ -21,7 +21,6 @@ body{
 }
 .chatContainer{
   float:left;
-
   width: 50%;
   margin-left: 10%;
 }
@@ -158,7 +157,7 @@ border-radius: 2px;
 .dialogue{
   padding: 5%;
   width: 75%;
-  background-size: contain;
   background-image: url('./images/IMG_head.png');
   background-repeat: no-repeat;
+  background-size: 100%;
 }
