@@ -40,3 +40,15 @@ function usersToDom(arr){
     displayUsers(el, templates.usertmpl, $('ul'));
   });
 }
+
+
+$('.chatContainer').on('mouseenter', ".messagediv", function(){
+  if (BrandTricks.config.activeUser === $(this).parent().data('user')){
+  $(".delete").addClass('showDelete');
+  }
+});
+$('.chatContainer').on('mouseleave', ".messagediv", function(){
+  if (BrandTricks.config.activeUser === $(this).parent().data('user')){
+  $(".delete").removeClass('showDelete');
+  }
+});

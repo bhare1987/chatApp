@@ -6,8 +6,15 @@ body{
   background-position: 40%;
 
 }
+
 .login {
   display: none;
+  font-family:'Cedarville Cursive', cursive;
+  background-size: contain;
+  background-image: url('./images/IMG_1599.png');
+  background-repeat: no-repeat;
+  padding: 5%;
+  margin-left: 35%;
 }
 .mainContainer {
   display: none;
@@ -106,28 +113,44 @@ border-radius: 2px;
   margin-left: 5%;
 }
 
-.inputChat:focus {
-  width
-}
 
 .thisaside{
   width:30%;
   height: 500px;
-  border: 2px solid blue;
-  float:right;
+  float:left;
   background-size: contain;
   background-image: url('./images/IMG_1599.png');
   background-repeat: no-repeat;
-
 }
+
+.thisaside p{
+ font-family:'Cedarville Cursive', cursive;
+ font-size: 20px;
+ margin-left: 18%;
+}
+
 
 .users{
   width: 70%;
   margin: 25%;
-  font-family:'Cedarville Cursive', cursive;
   font-size: 12px;
   color:black;
 }
 .userSpace ul{
-  float: right;
+  float: left;
+  margin-left: 15%;
+}
+.userSpace li{
+ font-family:'Cedarville Cursive', cursive;
+ background:transparent;
+ margin-top: 4%;
+}
+
+.showDelete{
+  display: inline-block;
+  color: red;
+  font-size: 10px;
+}
+.delete{
+  display: none;
 }
