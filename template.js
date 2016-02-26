@@ -4,7 +4,7 @@ var templates = {};
      "<span class='usenm'><%= username %></span>",
      "<span class='d8'><%= date %></span>",
      "<% if( obj.username === BrandTricks.config.activeUser) { %>",
-       "<span class='delete'>X</span>",
+       "<span class='delete'>I take that back</span>",
      "<% } %>",
      "<div class='messagediv'><%= content %></div>",
   "</div>",
