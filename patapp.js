@@ -44,11 +44,11 @@ function usersToDom(arr){
 
 $('.chatContainer').on('mouseenter', ".messagediv", function(){
   if (BrandTricks.config.activeUser === $(this).parent().data('user')){
-  $(".delete").addClass('showDelete');
+  $('.delete').addClass('showDelete');
   }
 });
 $('.chatContainer').on('mouseleave', ".messagediv", function(){
   if (BrandTricks.config.activeUser === $(this).parent().data('user')){
-  $(".delete").removeClass('showDelete');
+  $('.delete').removeClass('showDelete');
   }
 });
