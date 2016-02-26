@@ -1,5 +1,3 @@
-var messages =[ ];
-
 function userInput(){
   var content = $('input[name="chat"]').val();
   return {
@@ -14,12 +12,8 @@ function displayMessage(data, str, $target){
   $target.append(messtmpl(data));
 }
 
-function getMessage(){
-  return messages;
-}
-
 function addNewMessage(newMsg){
-  messages.push(newMsg);  //*
+  messages.push(newMsg);
 }
 
 function addGetMssg(arr){
@@ -27,7 +21,6 @@ function addGetMssg(arr){
   _.each(arr, function(el,i) {
     displayMessage(el, templates.messagetmpl, $('section'));
   });
-  console.log("refreshed!");
 }
 
 $('form').on('submit', function(event){
