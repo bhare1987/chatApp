@@ -23,9 +23,9 @@ function addNewMessage(newMsg){
 }
 
 function mssgToDom(arr){
-  $('section').html('');
+  $('.chatContainer section').html('');
   _.each(arr, function(el,i) {
-    displayMessage(el, templates.messagetmpl, $('section'));
+    displayMessage(el, templates.messagetmpl, $('.chatContainer section'));
   });
   console.log("refreshed!");
 }

@@ -129,7 +129,7 @@ var BrandTricks = {
   },
   refreshMsgs: function(){
     BrandTricks.setIntervals.intervalsFunc(true, 'message', 1000, BrandTricks.getMsg);
-    BrandTricks.setIntervals.intervalsFunc(true, 'msgrefresh', 1000, function(){addGetMssg(BrandTricks.config.messages)});
+    BrandTricks.setIntervals.intervalsFunc(true, 'msgrefresh', 1000, function(){mssgToDom(BrandTricks.config.messages)});
   },
   setActiveUser: function(username){
     return BrandTricks.config.activeUser = username;

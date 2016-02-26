@@ -8,8 +8,7 @@ var templates = {};
  ].join("");
 
   templates.usertmpl= [
-    "<div data-id='<%=_id %>'>",
-    "<li>",
+    "<li data-id='<%=_id%>'>",
     "<span class='usenm'><%= username %></span>",
     "</li>",
   ].join("");

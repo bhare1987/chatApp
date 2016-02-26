@@ -49,7 +49,7 @@ form{
   /*border: 5px solid #EC5144;*/
 }
 
-section{
+.chatContainer section{
   width: 89%;
   height: 500px;
   border: 20px;
@@ -117,8 +117,8 @@ border-radius: 2px;
   float:right;
   background-size: contain;
   background-image: url('./images/IMG_1599.png');
-  background-repeat: repeat;
-  
+  background-repeat: no-repeat;
+
 }
 
 .users{
