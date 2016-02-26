@@ -9,7 +9,7 @@ function userInput(){
 
 function displayMessage(data, str, $target){
   var messtmpl = _.template(str);
-  $target.append(messtmpl(data));
+  $target.prepend(messtmpl(data));
 }
 
 function mssgToDom(arr){
