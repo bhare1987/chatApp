@@ -12,10 +12,6 @@ function displayMessage(data, str, $target){
   $target.append(messtmpl(data));
 }
 
-function addNewMessage(newMsg){
-  messages.push(newMsg);
-}
-
 function mssgToDom(arr){
   $('section').html('');
   _.each(arr, function(el,i) {
