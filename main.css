@@ -146,13 +146,8 @@ border-radius: 2px;
  margin-top: 4%;
 }
 
-.showDelete{
+.delete {
   display: inline-block;
-  color: red;
-  font-size: 10px;
-}
-.delete{
-  display: inline;
 }
 
 .delete:hover {
