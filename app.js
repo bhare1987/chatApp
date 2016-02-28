@@ -1,7 +1,6 @@
 
 var BrandTricks = {
   init: function() {
-    BrandTricks.presentation();
     BrandTricks.events();
   },
   config: {
@@ -28,9 +27,10 @@ var BrandTricks = {
       method: 'GET'
     });
     request.done(function(result){
-      if (result.length > BrandTricks.config.messages.length){
+      if (result.length !== BrandTricks.config.messages.length){
+        var messages = _.first(result, 75)
         BrandTricks.config.messages = result;
-        BrandTricks.mssgToDom(result);
+        BrandTricks.mssgToDom(messages);
       }
     })
   },
@@ -150,10 +150,8 @@ var BrandTricks = {
     var userName = $('input[name="username"]').val().trim();
     var password = $('input[name="password"]').val().trim();
     BrandTricks.getUser();
-
     var userTest = BrandTricks.config.users.filter(function(el){
       return _.isMatch(el, {username: userName});
-
     });
     if (!userName || !password) {
       return "Invalid credentials";
@@ -173,6 +171,7 @@ var BrandTricks = {
     $('.login').removeClass('show');
     $('.mainContainer').addClass('show');
     BrandTricks.setActiveUser(userName);
+    BrandTricks.presentation();
     $('.chatContainer section').scrollTop($('.chatContainer section')[0].scrollHeight);
   },
   loginExisting: function(userName, password) {
@@ -181,6 +180,7 @@ var BrandTricks = {
         $('.login').removeClass('show');
         $('.mainContainer').addClass('show');
         BrandTricks.setActiveUser(userName);
+        BrandTricks.presentation();
         $('.chatContainer section').scrollTop($('.chatContainer section')[0].scrollHeight);
       } else {
         console.log("Login failed");
@@ -207,7 +207,7 @@ var BrandTricks = {
     var $selector = $('.chatContainer section');
     $selector.html('');
     _.each(arr, function(el,i) {
-      BrandTricks.displayMessage(el, templates.messagetmpl, $('.chatContainer section'));
+      BrandTricks.displayMessage(el, templates.messagetmpl, $selector);
     });
   },
   displayUsers: function(data, str, $target){
@@ -222,7 +222,6 @@ var BrandTricks = {
   },
   sendMsg: function(event) {
     event.preventDefault();
-    BrandTricks.getMsg();
     var NewMessage = BrandTricks.userInput();
     BrandTricks.addMsg(NewMessage);
     BrandTricks.mssgToDom(BrandTricks.config.messages);
