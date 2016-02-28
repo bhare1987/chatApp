@@ -23,16 +23,16 @@ var BrandTricks = {
     $('form').on('submit', BrandTricks.sendMsg);
   },
   getMsg: function() {
-    $.ajax({
+    var request = $.ajax({
       url: BrandTricks.config.urlMsg,
-      method: 'GET',
-      success: function (messages) {
-        BrandTricks.config.messages = messages;
-      },
-      error: function (err) {
-        console.log(err);
-      }
+      method: 'GET'
     });
+    request.done(function(result){
+      if (result.length > BrandTricks.config.messages.length){
+        BrandTricks.config.messages = result;
+        BrandTricks.mssgToDom(result);
+      }
+    })
   },
   addMsg: function(messageObj) {
     $.ajax({
@@ -67,23 +67,23 @@ var BrandTricks = {
     });
   },
   getUser: function() {
-    $.ajax({
+    var request = $.ajax({
       url: BrandTricks.config.urlUser,
-      method: 'GET',
-      success: function (users) {
-        BrandTricks.config.users = users;
-      },
-      error: function(err) {
-        console.log(err);
-      }
+      method: 'GET'
     });
+    request.done(function(result){
+      if (result.length > BrandTricks.config.users.length) {
+        BrandTricks.config.users = result;
+        BrandTricks.usersToDom(result);
+      }
+    })
   },
   addUser: function(userObj) {
     $.ajax({
       url: BrandTricks.config.urlUser,
       method: "POST",
       data: userObj,
-      success: function(messages){
+      success: function(){
         BrandTricks.getUser();
       },
       error: function(err) {
@@ -138,11 +138,9 @@ var BrandTricks = {
   },
   refreshMsgs: function(){
     BrandTricks.setIntervals.intervalsFunc(true, 'message', 1000, BrandTricks.getMsg);
-    BrandTricks.setIntervals.intervalsFunc(true, 'msgrefresh', 1000, function(){BrandTricks.mssgToDom(BrandTricks.config.messages)});
   },
   refreshUsers: function(){
     BrandTricks.setIntervals.intervalsFunc(true, 'user', 1000, BrandTricks.getUser);
-    BrandTricks.setIntervals.intervalsFunc(true, 'userrefresh', 5000, function(){BrandTricks.usersToDom(BrandTricks.config.users)});
   },
   setActiveUser: function(username){
     return BrandTricks.config.activeUser = username;
@@ -175,6 +173,7 @@ var BrandTricks = {
     $('.login').removeClass('show');
     $('.mainContainer').addClass('show');
     BrandTricks.setActiveUser(userName);
+    $('.chatContainer section').scrollTop($('.chatContainer section')[0].scrollHeight);
   },
   loginExisting: function(userName, password) {
     BrandTricks.config.users.forEach(function(el){
@@ -182,6 +181,7 @@ var BrandTricks = {
         $('.login').removeClass('show');
         $('.mainContainer').addClass('show');
         BrandTricks.setActiveUser(userName);
+        $('.chatContainer section').scrollTop($('.chatContainer section')[0].scrollHeight);
       } else {
         console.log("Login failed");
         return "Login failed";
