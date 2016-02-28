@@ -2,6 +2,7 @@
 var BrandTricks = {
   init: function() {
     BrandTricks.events();
+    BrandTricks.getUser()
   },
   config: {
     urlMsg: "http://tiny-tiny.herokuapp.com/collections/BrandTricks",
@@ -11,7 +12,6 @@ var BrandTricks = {
     messages: []
   },
   presentation: function() {
-    BrandTricks.getUser();
     BrandTricks.getMsg();
     BrandTricks.refreshMsgs();
     BrandTricks.refreshUsers();
