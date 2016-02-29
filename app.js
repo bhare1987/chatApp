@@ -73,7 +73,7 @@ var BrandTricks = {
       method: 'GET'
     });
     request.done(function(result){
-      if (result.length > BrandTricks.config.users.length) {
+      if (result.length !== BrandTricks.config.users.length) {
         BrandTricks.config.users = result;
         BrandTricks.usersToDom(result);
       }
