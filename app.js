@@ -26,6 +26,7 @@ var BrandTricks = {
       url: BrandTricks.config.urlMsg,
       method: 'GET'
     });
+    //http://www.keyboardninja.eu/webdevelopment/jquery-ajax-call-tutorial
     request.done(function(result){
       if (result.length !== BrandTricks.config.messages.length){
         var messages = _.first(result, 75)
